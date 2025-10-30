@@ -22,7 +22,7 @@ interface Book {
 const Index = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [editingBook, setEditingBook] = useState<Book | null>(null);
-  const [filter, setFilter] = useState({ author: '', date: '', title: '', status: '' });
+  const [filter, setFilter] = useState({ author: '', date: '', title: '', status: 'all' });
   const [form, setForm] = useState<Book>({ title: '', author: '', date: '', status: '' });
   const [loading, setLoading] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -147,7 +147,7 @@ const Index = () => {
       (filter.title === '' || book.title.toLowerCase().includes(filter.title.toLowerCase())) &&
       (filter.author === '' || book.author.toLowerCase().includes(filter.author.toLowerCase())) &&
       (filter.date === '' || book.date.includes(filter.date)) &&
-      (filter.status === '' || book.status === filter.status)
+      (filter.status === 'all' || filter.status === '' || book.status === filter.status)
     );
   });
 
@@ -231,7 +231,7 @@ const Index = () => {
                     <SelectValue placeholder="All statuses" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All statuses</SelectItem>
+                    <SelectItem value="all">All statuses</SelectItem>
                     <SelectItem value="reading">Reading</SelectItem>
                     <SelectItem value="completed">Completed</SelectItem>
                     <SelectItem value="to-read">To Read</SelectItem>
